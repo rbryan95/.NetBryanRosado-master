@@ -17,12 +17,3 @@
             // Process the ticket data here
         }
     }
-using System;
-
-class Program
-{
-    static void Main(string[] args)
-    {
-        TicketManager.AddTicket();
-    }
-}
