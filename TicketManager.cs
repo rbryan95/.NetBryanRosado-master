@@ -13,6 +13,11 @@
             Console.Write("Enter Submitter: ");
             string submitter = Console.ReadLine();
             Console.Write("Enter Assigned: ");
+            string assigned = Console.ReadLine();
+            Console.Write("Enter Watching: ");
+            string watching = Console.ReadLine();
+            Console.Write("Enter Severity: ");
+            string severity = Console.ReadLine();
 
             // Process the ticket data here
         }
