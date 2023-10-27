@@ -27,8 +27,13 @@
             //object
             var bugDefectTicket = new BugDefectTicket(ticketID, summary, status, priority, submitter, assigned, watching, severity);
             //csv file
+            bool bugDefectsFileExists = File.Exists(bugDefectsFile);
             using (StreamWriter writer = new StreamWriter(bugDefectsFile, true))
             {
+                if (!bugDefectsFileExists)
+                {
+                    writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,Severity");
+                }
                 writer.WriteLine($"{bugDefectTicket.TicketID},{bugDefectTicket.Summary},{bugDefectTicket.Status},{bugDefectTicket.Priority},{bugDefectTicket.Submitter},{bugDefectTicket.Assigned},{bugDefectTicket.Watching},{bugDefectTicket.Severity}");
             }
 
@@ -90,8 +95,13 @@
 
 
                     //Enhancement Ticket CVS File
+                    bool enhancementsFileExists = File.Exists(enhancementsFile);
                     using (StreamWriter writer = new StreamWriter(enhancementsFile, true))
                     {
+                        if(!enhancementsFileExists)
+                        {
+                            writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,Software,Cost,Reason,Estimate");
+                        }
                         writer.WriteLine($"{enhancementTicket.TicketID},{enhancementTicket.Summary},{enhancementTicket.Status},{enhancementTicket.Priority},{enhancementTicket.Submitter},{enhancementTicket.Assigned},{enhancementTicket.Watching},{enhancementTicket.Software},{enhancementTicket.Cost},{enhancementTicket.Reason},{enhancementTicket.Estimate}");
                     }
 
@@ -140,8 +150,15 @@
             {
                 Console.WriteLine("Invalid Due Date format. Please enter a valid date (yyyy-MM-dd).");
             }
+            
+                //CSV files exsit and add headers to new file 
+            bool tasksFileExists = File.Exists(tasksFile); 
             using (StreamWriter writer = new StreamWriter(tasksFile, true))
             {
+                if (!tasksFileExists)
+                {
+                    writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,ProjectName,DueDate");
+                }
                 TaskTicket taskTicket;
                 if (DateTime.TryParse(Console.ReadLine(), out DateTime newDueDate))
                 {
