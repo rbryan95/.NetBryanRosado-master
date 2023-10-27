@@ -1,6 +1,6 @@
  class TicketManager
     {
-        public static void AddTicket()
+        public static void AddBugDefectTicket()
         {
             Console.Write("Enter TicketID: ");
             string ticketID = Console.ReadLine();
