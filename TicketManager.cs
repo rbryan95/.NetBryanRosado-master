@@ -64,4 +64,34 @@
             }
         }
                     // Task Ticket User input
-    }
+    public static void AddTaskTicket()
+        {
+            Console.Write("Enter TicketID: ");
+            string ticketID = Console.ReadLine();
+            Console.Write("Enter Summary: ");
+            string summary = Console.ReadLine();
+            Console.Write("Enter Status: ");
+            string status = Console.ReadLine();
+            Console.Write("Enter Priority: ");
+            string priority = Console.ReadLine();
+            Console.Write("Enter Submitter: ");
+            string submitter = Console.ReadLine();
+             Console.Write("Enter Assigned: ");
+            string assigned = Console.ReadLine();
+            Console.Write("Enter Watching: ");
+            string watching = Console.ReadLine();
+            Console.Write("Enter Project Name: ");
+            string projectName = Console.ReadLine();
+            Console.Write("Enter Due Date (yyyy-MM-dd): ");
+            if (DateTime.TryParse(Console.ReadLine(), out DateTime dueDate))
+            {
+                var taskTicket = new TaskTicket(ticketID, summary, status, priority, submitter, assigned, watching, projectName, dueDate);
+
+                // Process and save the task ticket data
+            }
+            else
+            {
+                Console.WriteLine("Invalid Due Date format. Please enter a valid date (yyyy-MM-dd).");
+            }
+         }
+     }
