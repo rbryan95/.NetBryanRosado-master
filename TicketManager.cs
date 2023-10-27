@@ -1,4 +1,6 @@
- class TicketManager
+using System.Globalization;
+
+class TicketManager
     {
          // Specify the file paths for each CSV file
         private static string bugDefectsFile = "BugsDefects.csv";
@@ -155,15 +157,15 @@
             bool tasksFileExists = File.Exists(tasksFile); 
             using (StreamWriter writer = new StreamWriter(tasksFile, true))
             {
-               
+               //if (DateTime.TryParseExact(dueDateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out newDueDate))
                 TaskTicket taskTicket;
-                if (DateTime.TryParse(Console.ReadLine(), out DateTime newDueDate))
+                if (DateTime.TryParseExact(Console.ReadLine(), "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime newDueDate))
                 {
                     taskTicket = new TaskTicket(ticketID, summary, status, priority, submitter, assigned, watching, projectName, newDueDate);
-                 if (!tasksFileExists)
-                {
-                    writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,ProjectName,DueDate");
-                }
+                    if (!tasksFileExists)
+                    {
+                        writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,ProjectName,DueDate");
+                    }
                     writer.WriteLine($"{taskTicket.TicketID},{taskTicket.Summary},{taskTicket.Status},{taskTicket.Priority},{taskTicket.Submitter},{taskTicket.Assigned},{taskTicket.Watching},{taskTicket.ProjectName},{taskTicket.DueDate:yyyy-MM-dd}");
 
                     Console.WriteLine("Task Ticket added successfully.");
