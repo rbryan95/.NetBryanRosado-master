@@ -155,15 +155,15 @@
             bool tasksFileExists = File.Exists(tasksFile); 
             using (StreamWriter writer = new StreamWriter(tasksFile, true))
             {
-                if (!tasksFileExists)
-                {
-                    writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,ProjectName,DueDate");
-                }
+               
                 TaskTicket taskTicket;
                 if (DateTime.TryParse(Console.ReadLine(), out DateTime newDueDate))
                 {
                     taskTicket = new TaskTicket(ticketID, summary, status, priority, submitter, assigned, watching, projectName, newDueDate);
-
+                 if (!tasksFileExists)
+                {
+                    writer.WriteLine("TicketID,Summary,Status,Priority,Submitter,Assigned,Watching,ProjectName,DueDate");
+                }
                     writer.WriteLine($"{taskTicket.TicketID},{taskTicket.Summary},{taskTicket.Status},{taskTicket.Priority},{taskTicket.Submitter},{taskTicket.Assigned},{taskTicket.Watching},{taskTicket.ProjectName},{taskTicket.DueDate:yyyy-MM-dd}");
 
                     Console.WriteLine("Task Ticket added successfully.");
