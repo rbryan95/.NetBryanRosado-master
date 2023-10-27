@@ -1,5 +1,9 @@
  class TicketManager
     {
+         // Specify the file paths for each CSV file
+        private static string bugDefectsFile = "BugsDefects.csv";
+        private static string enhancementsFile = "Enhancements.csv";
+        private static string tasksFile = "Tasks.csv";
         public static void AddBugDefectTicket()
         {
             Console.Write("Enter TicketID: ");
