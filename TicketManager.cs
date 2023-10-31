@@ -65,27 +65,6 @@ class TicketManager
             Console.Write("Enter Cost: ");
            
            //obj 
-            if (double.TryParse(Console.ReadLine(), out double cost))
-            {
-                Console.Write("Enter Reason: ");
-                string reason = Console.ReadLine();
-                Console.Write("Enter Estimate: ");
-                if (double.TryParse(Console.ReadLine(), out double estimate))
-                {
-                    var enhancementTicket = new EnhancementTicket(ticketID, summary, status, priority, submitter, assigned, watching, software, cost, reason, estimate);
-
-                    // Process and save the enhancement ticket data
-                }
-                else
-                {
-                    Console.WriteLine("Invalid Estimate value. Please enter a valid number.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid Cost value. Please enter a valid number.");
-            }
-            
             if (double.TryParse(Console.ReadLine(), out double enhancementCost))
             {
                 Console.Write("Enter Reason: ");
@@ -93,7 +72,7 @@ class TicketManager
                 Console.Write("Enter Estimate: ");
                 if (double.TryParse(Console.ReadLine(), out double estimate))
                 {
-                    var enhancementTicket = new EnhancementTicket(ticketID, summary, status, priority, submitter, assigned, watching, software, cost, reason, estimate);
+                    var enhancementTicket = new EnhancementTicket(ticketID, summary, status, priority, submitter, assigned, watching, software, enhancementCost, reason, estimate);
 
 
                     //Enhancement Ticket CVS File
@@ -141,17 +120,7 @@ class TicketManager
             string projectName = Console.ReadLine();
             Console.Write("Enter Due Date (yyyy-MM-dd): ");
            
-                //OBJ 
-            if (DateTime.TryParse(Console.ReadLine(), out DateTime dueDate))
-            {
-                var taskTicket = new TaskTicket(ticketID, summary, status, priority, submitter, assigned, watching, projectName, dueDate);
-
-                // Process and save the task ticket data
-            }
-            else
-            {
-                Console.WriteLine("Invalid Due Date format. Please enter a valid date (yyyy-MM-dd).");
-            }
+             //OBJ 
             
                 //CSV files exsit and add headers to new file 
             bool tasksFileExists = File.Exists(tasksFile); 
@@ -188,9 +157,9 @@ class TicketManager
 
             if (searchBy == "1")
             {
-                searchResults.AddRange(SearchTicketsInFile(bugDefectsFile, searchTerm));
-                searchResults.AddRange(SearchTicketsInFile(enhancementsFile, searchTerm));
-                searchResults.AddRange(SearchTicketsInFile(tasksFile, searchTerm));
+                searchResults.AddRange(SearchTicketsInFile(bugDefectsFile, searchTerm, "Status"));
+                searchResults.AddRange(SearchTicketsInFile(enhancementsFile, searchTerm, "Status"));
+                searchResults.AddRange(SearchTicketsInFile(tasksFile, searchTerm, "Status"));
             }
             else if (searchBy == "2")
             {
@@ -219,7 +188,7 @@ class TicketManager
                 Console.WriteLine("No matching tickets found.");
             }
         }
-           private static List<Ticket> SearchTicketsInFile(string filePath, string searchTerm, string propertyToSearch = null)
+           private static List<Ticket> SearchTicketsInFile(string filePath, string searchTerm, string propertyToSearch)
         {
             var searchResults = new List<Ticket>();
 
@@ -233,7 +202,8 @@ class TicketManager
                         string line = reader.ReadLine();
                         string[] parts = line.Split(',');
 
-                        if (propertyToSearch == null || propertyToSearch == "Submitter" && parts[4].Contains(searchTerm) || propertyToSearch == "Priority" && parts[3].Contains(searchTerm))
+
+                        if (propertyToSearch == "Status" && parts[2].Contains(searchTerm)  || propertyToSearch == "Submitter" && parts[4].Contains(searchTerm) || propertyToSearch == "Priority" && parts[3].Contains(searchTerm))
                         {
                             var ticket = new Ticket(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]);
                             searchResults.Add(ticket);
