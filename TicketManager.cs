@@ -219,4 +219,30 @@ class TicketManager
                 Console.WriteLine("No matching tickets found.");
             }
         }
+           private static List<Ticket> SearchTicketsInFile(string filePath, string searchTerm, string propertyToSearch = null)
+        {
+            var searchResults = new List<Ticket>();
+
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string headerLine = reader.ReadLine(); // Read and discard the header line
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        string[] parts = line.Split(',');
+
+                        if (propertyToSearch == null || propertyToSearch == "Submitter" && parts[4].Contains(searchTerm) || propertyToSearch == "Priority" && parts[3].Contains(searchTerm))
+                        {
+                            var ticket = new Ticket(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6]);
+                            searchResults.Add(ticket);
+                        }
+                    }
+                }
+            }
+
+            return searchResults; 
+
+    }
     }
