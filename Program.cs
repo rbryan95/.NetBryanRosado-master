@@ -16,7 +16,8 @@ namespace TicketSystemApp
                 Console.WriteLine("1. Add Bug/Defect Ticket");
                 Console.WriteLine("2. Add Enhancement Ticket");
                 Console.WriteLine("3. Add Task Ticket");
-                Console.WriteLine("4. Quit");
+                Console.WriteLine("4. Search Tickets");
+                Console.WriteLine("5. Quit");
                 Console.Write("Enter your choice: ");
                 string choice = Console.ReadLine();
 
@@ -34,9 +35,13 @@ namespace TicketSystemApp
                 }
                 else if (choice == "4")
                 {
+                    TicketManager.SearchTickets();
+                }
+                else if (choice == "5")
+                {
                     break;
                 }
-                else
+                
                 {
                     Console.WriteLine("Invalid choice. Please select a valid option.");
                 }
