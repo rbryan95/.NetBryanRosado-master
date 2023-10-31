@@ -176,4 +176,47 @@ class TicketManager
                 }
             }
         }
+
+        public static void SearchTickets()
+        {
+            Console.WriteLine("Search by (1) Status, (2) Priority, or (3) Submitter: ");
+            string searchBy = Console.ReadLine();
+            Console.Write("Enter search term: ");
+            string searchTerm = Console.ReadLine();
+
+            var searchResults = new List<Ticket>();
+
+            if (searchBy == "1")
+            {
+                searchResults.AddRange(SearchTicketsInFile(bugDefectsFile, searchTerm));
+                searchResults.AddRange(SearchTicketsInFile(enhancementsFile, searchTerm));
+                searchResults.AddRange(SearchTicketsInFile(tasksFile, searchTerm));
+            }
+            else if (searchBy == "2")
+            {
+                searchResults.AddRange(SearchTicketsInFile(bugDefectsFile, searchTerm, "Priority"));
+                searchResults.AddRange(SearchTicketsInFile(enhancementsFile, searchTerm, "Priority"));
+                searchResults.AddRange(SearchTicketsInFile(tasksFile, searchTerm, "Priority"));
+            }
+            else if (searchBy == "3")
+            {
+                searchResults.AddRange(SearchTicketsInFile(bugDefectsFile, searchTerm, "Submitter"));
+                searchResults.AddRange(SearchTicketsInFile(enhancementsFile, searchTerm, "Submitter"));
+                searchResults.AddRange(SearchTicketsInFile(tasksFile, searchTerm, "Submitter"));
+            }
+
+            if (searchResults.Count > 0)
+            {
+                Console.WriteLine("Search Results:");
+                foreach (var ticket in searchResults)
+                {
+                    Console.WriteLine($"TicketID: {ticket.TicketID}, Summary: {ticket.Summary}");
+                }
+                Console.WriteLine($"Number of Matches: {searchResults.Count}");
+            }
+            else
+            {
+                Console.WriteLine("No matching tickets found.");
+            }
+        }
     }
