@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+// See https://aka.ms/new-console-template for more information
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +41,7 @@ namespace TicketSystemApp
                 {
                     break;
                 }
-                
+                else
                 {
                     Console.WriteLine("Invalid choice. Please select a valid option.");
                 }
